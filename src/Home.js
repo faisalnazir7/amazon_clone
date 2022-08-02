@@ -6,10 +6,10 @@ import Product from "./Product";
 function Home() {
   return (
     <div className="home">
-      <div className="home__container">
+      <div className=" ">
         <img className="home__image" src={homeBanner} alt="banner" />
          <div className="home__row">
-          <Product />
+          <Product title='Borosil Hydra' price={750.00} image= {<img className="home__image" src={homeBanner} alt="banner" />} rating={5} />
           <Product />
          </div>
          <div className="home__row">

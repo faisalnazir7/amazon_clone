@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Header from './Header';
 import Home from'./Home';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 class App extends Component {
   render() {
@@ -9,8 +10,16 @@ class App extends Component {
 
       //BEM convention
       <div className="app">
-        <Header />
-        <Home />
+        <Switch>
+          <Route path="/">
+            <Header />
+            <Home />
+          </Route>
+          <Route path="/checkout">
+            <Header />
+            <h1>This is checkout session.</h1>
+          </Route>
+        </Switch>
       </div>
     );
   }

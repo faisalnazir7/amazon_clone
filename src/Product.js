@@ -2,20 +2,21 @@ import React from 'react';
 import "./Product.css";
 
 function Product
-() {
+({ title, image, price, rating }) {
   return (
     <div className='product'>
         <div className='product__info'>
-            <p>Borosil Hydra</p>
+            <p>{title}</p>
             <p className='product__price'>
                 <small>Rs. </small>
-                <strong>750</strong>
+                <strong>{price}</strong>
             </p>
             <div className='product__rating'>
+              {Array(rating)
+              .fill()
+              .map((_, i) => (
                 <p>*</p>
-                <p>*</p>
-                <p>*</p>
-                <p>*</p>
+              ))}
             </div>
         </div>
         <img src='https://unsplash.com/s/photos/water-bottle'/>
