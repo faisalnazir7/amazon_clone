@@ -1,26 +1,38 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import './App.css';
 import Header from './Header';
 import Home from'./Home';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Checkout from './Checkout';
+import { BrowserRouter, Routes, Route} from "react-router-dom";
 
 class App extends Component {
   render() {
     return (
 
       //BEM convention
-      <div className="app">
-        <Switch>
-          <Route path="/">
-            <Header />
-            <Home />
-          </Route>
-          <Route path="/checkout">
-            <Header />
-            <h1>This is checkout session.</h1>
-          </Route>
-        </Switch>
+      <BrowserRouter>
+        <div className="app">
+        <Routes>
+        <Route path="/checkout" element={
+        <Fragment>
+          <Header/>
+          <Checkout/>
+        </Fragment>
+        }/>
+          
+          <Route path="/" element={
+            <Fragment>
+              <Header/>
+              <Home/>
+            </Fragment>  
+        }   
+          />
+            
+              
+        </Routes>
       </div>
+      </BrowserRouter>
+      
     );
   }
 }
