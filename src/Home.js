@@ -10,15 +10,15 @@ function Home() {
         <img className="home__image" src={homeBanner} alt="banner" />
          <div className="home__row">
           <Product title='Borosil Hydra' price={750.00} image= {<img className="home__image" src={homeBanner} alt="banner" />} rating={5} />
-          <Product />
+          <Product title='Oneplus 8T: 12 gb 256 gb' price={45999.00} image={<img className="home__image" src="https://www.amazon.com/OnePlus-Aquamarine-Unlocked-Android-Smartphone/dp/B08KXB3R7S" alt="banner" />} rating={5} />
          </div>
          <div className="home__row">
-         <Product />
-         <Product />
-         <Product />
+         <Product title='Borosil Hydra' price={750.00} image= {<img className="home__image" src={homeBanner} alt="banner" />} rating={5} />
+         <Product title='Borosil Hydra' price={750.00} image= {<img className="home__image" src={homeBanner} alt="banner" />} rating={5} />
+         <Product title='Borosil Hydra' price={750.00} image= {<img className="home__image" src={homeBanner} alt="banner" />} rating={5} />
          </div>
          <div className="home__row">
-         <Product />
+         <Product title='Borosil Hydra' price={750.00} image= {<img className="home__image" src={homeBanner} alt="banner" />} rating={5} />
          </div>
       </div>
     </div>
