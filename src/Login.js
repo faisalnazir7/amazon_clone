@@ -1,25 +1,29 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { auth } from './firebase';
 import "./Login.css";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 
 function Login() {
-    const history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+
+    // const auth = getAuth();
 
     const signIn = e => {
         e.preventDefault();
 
         signInWithEmailAndPassword(auth, email, password)
-            .then((auth) => {
-                    history.push("/");
-            })
-            .catch(error => {
-                alert(error.message);
-            });
+  .then((auth) => {
+    // Signed in 
+    // const user = userCredential.user;
+    // console.log(auth);
+    navigate("/");
+    // ...
+  })
+  .catch(error => alert(error.message));
 
         // fancy firebase sign in
 
@@ -30,18 +34,17 @@ function Login() {
 
         // some firebase register stuff
 
-        createUserWithEmailAndPassword(auth ,email, password)
-            .then((auth) => {
-                // creates new user succesfully with email and password
-                if (auth) {
-                    history.push("/");
-                }
-
-            })
-            .catch((error) => {
-                console.log(error);
-                alert(error.message);
-            });
+        createUserWithEmailAndPassword(auth, email, password)
+  .then((auth) => {
+    // Signed in 
+    // const user = userCredential.user;
+    if (auth) {
+        navigate("/");
+    }
+    // ...
+  })
+  .catch(error => alert(error.message));
+    // ..
     };
 
   return (
