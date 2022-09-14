@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from './firebase';
 import "./Login.css";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 
 
 function Login() {
@@ -46,6 +46,33 @@ function Login() {
   .catch(error => alert(error.message));
     // ..
     };
+
+    const [{}, dispatch] = useStateValue();
+
+    useEffect(() => {
+      // runs once app components runs
+      
+      onAuthStateChanged(auth, (authUser) => {
+        console.log("the user is >>> ",authUser);
+        if (authUser) {
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/firebase.User
+          // const uid = user.uid;
+          dispatch({
+            type: ' SET_USER',
+            user: authUser
+          })
+          // ...
+        } else {
+          // User is signed out
+          dispatch({
+            type: 'SET_USER',
+            user: authUser
+          })
+          // ...
+        }
+      });
+    }, [])
 
   return (
     <div className='login'>
