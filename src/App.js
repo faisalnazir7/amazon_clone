@@ -5,44 +5,41 @@ import Home from'./Home';
 import Checkout from './Checkout';
 import { BrowserRouter, Routes, Route} from "react-router-dom";
 import Login from './Login';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { useStateValue } from './StateProvider';
-import {auth} from "./firebase"
+import {auth} from "./firebase";
 
 class App extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
-    componentDidMount() {
-      const [{}, dispatch] = useStateValue();
 
     
       // runs once app components runs
+      componentDidUpdate(auth){
+
+        const [{}, dispatch] = useStateValue();
+
+        onAuthStateChanged(auth, (user) => {
+          console.log("the user is >>> ",user);
+          if (user) {
+            // User is signed in, see docs for a list of available properties
+            // https://firebase.google.com/docs/reference/js/firebase.User
+          //   const uid = user.uid;
+            dispatch({
+              type: ' SET_USER',
+              user: user
+            })
+            // ...
+          } else {
+            // User is signed out
+            dispatch({
+              type: 'SET_USER',
+              user: null
+            })
+            // ...
+          }
+        })
+      }
       
-      onAuthStateChanged(auth, (user) => {
-        console.log("the user is >>> ",user);
-        if (user) {
-          // User is signed in, see docs for a list of available properties
-          // https://firebase.google.com/docs/reference/js/firebase.User
-        //   const uid = user.uid;
-          dispatch({
-            type: ' SET_USER',
-            user: user
-          })
-          // ...
-        } else {
-          // User is signed out
-          dispatch({
-            type: 'SET_USER',
-            user: user
-          })
-          // ...
-        }
-      });
-    
-    }
 
   render() {
 
