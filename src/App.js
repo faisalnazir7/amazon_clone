@@ -12,33 +12,40 @@ import {auth} from "./firebase";
 class App extends Component {
 
 
-    
+  constructor(props){
+    super(props);
+    this.state={
+      user : {}
+    }
+}
+componentDidMount(){
+    this.authListener();
+}
+authListener() {
+  const [{}, dispatch] = useStateValue();
+
+  onAuthStateChanged(auth, (user) => {
+    console.log("the user is >>> ",user);
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+    //   const uid = user.uid;
+      dispatch({
+        type: ' SET_USER',
+        user: user
+      })
+      // ...
+    } else {
+      // User is signed out
+      dispatch({
+        type: 'SET_USER',
+        user: null
+      })
+      // ...
+    }
+  })
+}
       // runs once app components runs
-      componentDidUpdate(auth){
-
-        const [{}, dispatch] = useStateValue();
-
-        onAuthStateChanged(auth, (user) => {
-          console.log("the user is >>> ",user);
-          if (user) {
-            // User is signed in, see docs for a list of available properties
-            // https://firebase.google.com/docs/reference/js/firebase.User
-          //   const uid = user.uid;
-            dispatch({
-              type: ' SET_USER',
-              user: user
-            })
-            // ...
-          } else {
-            // User is signed out
-            dispatch({
-              type: 'SET_USER',
-              user: null
-            })
-            // ...
-          }
-        })
-      }
       
 
   render() {
