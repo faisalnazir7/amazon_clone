@@ -19,7 +19,7 @@ function App() {
 
 
         onAuthStateChanged(auth, (authUser) => {
-          console.log("the user is >>> ",authUser);
+          // console.log("the user is >>> ",authUser);
           if (authUser) {
             // User is signed in, see docs for a list of available properties
             // https://firebase.google.com/docs/reference/js/firebase.User
