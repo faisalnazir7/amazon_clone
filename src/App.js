@@ -12,21 +12,21 @@ import {auth} from "./firebase";
 function App() {
   
       // runs once app components runs
-      const [{}, dispatch] = useStateValue();
-      // const authUser = auth.currentUser;
+      const [state, dispatch] = useStateValue();
+      // const user = auth.currentUser;
 
       useEffect(() => {
 
 
-        onAuthStateChanged(auth, (authUser) => {
-          // console.log("the user is >>> ",authUser);
-          if (authUser) {
+        onAuthStateChanged(auth, (user) => {
+          console.log("the user is >>> ",user);
+          if (user) {
             // User is signed in, see docs for a list of available properties
             // https://firebase.google.com/docs/reference/js/firebase.User
           //   const uid = user.uid;
             dispatch({
-              type: ' SET_USER',
-              user: authUser
+              type: 'SET_USER',
+              user: user
             })
             // ...
           } else {
