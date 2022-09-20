@@ -40,7 +40,7 @@ function Product
               ))}
             </div>
         </div>
-        <img src='https://unsplash.com/s/photos/water-bottle'/>
+        <img src={image} alt="" />
         <button onClick={addToBasket}>Add to Cart </button>
     </div>
   );
