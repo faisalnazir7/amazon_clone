@@ -9,6 +9,12 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { useStateValue } from './StateProvider';
 import {auth} from "./firebase";
 import Payment from './Payment';
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+
+const promise = loadStripe("pk_test_51LkkMkSELcwMLRfIFUzquOw2roTfCNJmuWiah6r2TtB5pPGKDZJhUQ53tiBpUgHbNV0rv8RUNkiq3skHfsCKSM0T00gBXzOTD6");
+
+
 
 function App() {
   
@@ -20,7 +26,7 @@ function App() {
 
 
         onAuthStateChanged(auth, (user) => {
-          console.log("the user is >>> ",user);
+          // console.log("the user is >>> ",user);
           if (user) {
             // User is signed in, see docs for a list of available properties
             // https://firebase.google.com/docs/reference/js/firebase.User
@@ -58,7 +64,9 @@ function App() {
 <Route path="/payment" element={
         <Fragment>
           <Header/>
-          <Payment/>
+          <Elements stripe={promise}>
+              <Payment/>
+          </Elements>
         </Fragment>
         }/>
 
