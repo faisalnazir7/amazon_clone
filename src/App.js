@@ -8,6 +8,7 @@ import Login from './Login';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useStateValue } from './StateProvider';
 import {auth} from "./firebase";
+import Payment from './Payment';
 
 function App() {
   
@@ -54,7 +55,14 @@ function App() {
         </Fragment>
         }/>
 
-<Route path="/login" element={
+<Route path="/payment" element={
+        <Fragment>
+          <Header/>
+          <Payment/>
+        </Fragment>
+        }/>
+
+        <Route path="/login" element={
         <Fragment>
           <Login/>
         </Fragment>
