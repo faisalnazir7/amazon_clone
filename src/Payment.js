@@ -8,6 +8,8 @@ import CurrencyFormat from 'react-currency-format';
 import { getBasketTotal } from './reducer';
 import {useNavigate} from "react-router-dom";
 import axios from "./axios";
+import { db } from './firebase';
+import { collection, addDoc, doc, setDoc } from "firebase/firestore";
 
 function Payment() {
     const [{basket,user}, dispatch] = useStateValue();
@@ -17,18 +19,19 @@ function Payment() {
     const stripe = useStripe();
     const elements = useElements();
 
-    const [succeeded, setSucceeded] = useState(null);
+    const [succeeded, setSucceeded] = useState(false);
     const [error, setError] = useState(null);
     const [processing, setProcessing] = useState("");
-    const [disabled, setDisabled] = useState(null);
-    const [clientSecret, setClientSecret] = useState(null);
+    const [disabled, setDisabled] = useState(true);
+    const [clientSecret, setClientSecret] = useState(true);
+    
 
     useEffect(() => {
         //generate special stripe secret allows us to charge a customer
 
         const getClientSecret = async () => {
             const response = await axios({
-                method: "post",
+                method: 'post',
                 url: `/payments/create?total=${getBasketTotal(basket) * 100}`
             });
             setClientSecret(response.data.clientSecret)
@@ -37,6 +40,7 @@ function Payment() {
     }, [basket])
 
     console.log('the secret is >>> ', clientSecret);
+    console.log('🤞', user)
 
     const handleSubmit = async (e) => {
         // do stuff fancy stripe
@@ -45,21 +49,60 @@ function Payment() {
 
         const payload = await stripe.confirmCardPayment(clientSecret, {
             payment_method: {
-                card: elements.getElement(CardElement)
+                card: elements.getElement(CardElement),
             }
-        }).then(({ paymentIntent }) => {
+        }).then(( {paymentIntent} ) => {
             //pay.Intent = pay. confirmation
+
+            // db.collection("users")
+            //   .addDoc(user?.uid)
+            //   .collection("orders")
+            //   .addDoc(paymentIntent.id)
+            //   .set({
+            //     basket: basket,
+            //     amount: paymentIntent.amount,
+            //     created: paymentIntent.created
+            //   })
+
+            try {
+
+                
+                console.log("🔥"+user?.uid);
+                console.log("🔥"+paymentIntent.id);
+                console.log("🔥"+paymentIntent.amount);
+                console.log("🔥"+paymentIntent.created);
+
+                const payRef = doc(db, 'users',user?.uid, 'orders',paymentIntent.id);
+                
+                setDoc(doc(db, "users",user?.uid, "orders",paymentIntent.id), {
+                    basket: basket,
+                    amount: paymentIntent.amount,
+                    created: paymentIntent.created
+                  });
+                
+
+              } catch (e) {
+                console.error("Error adding document: ", e);
+              }
+            
+
 
             setSucceeded(true);
             setError(null);
             setProcessing(false);
 
-            navigate('/orders')
-        })
+           dispatch({
+            type: "EMPTY_BASKET",
+            pid: paymentIntent.created
+        });
 
-    }
+        navigate('/orders', { replace: true});
+            
+        });
 
-    const handleChange = e => {
+    };
+
+    const handleChange = (e) => {
         //listen changes in card element
         //displays any errors on typos
         setDisabled(e.empty);
