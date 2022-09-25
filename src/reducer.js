@@ -18,8 +18,7 @@ const reducer = (state, action) => {
         case "EMPTY_BASKET":
             return {
                 ...state,
-                basket: [],
-                pid: pid
+                basket: []
             }
 
         case "REMOVE_FROM_BASKET":

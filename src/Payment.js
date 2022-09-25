@@ -92,8 +92,7 @@ function Payment() {
             setProcessing(false);
 
            dispatch({
-            type: "EMPTY_BASKET",
-            pid: paymentIntent.created
+            type: "EMPTY_BASKET"
         });
 
         navigate('/orders', { replace: true});
