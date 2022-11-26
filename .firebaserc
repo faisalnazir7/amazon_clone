@@ -1,5 +1,9 @@
 {
   "projects": {
-    "default": "clone-24c33"
-  }
+    "default": "amz-clone-7fa9b",
+    "hosting": "amz-clone-7fa9b",
+    "staging": "amz-clone-7fa9b"
+  },
+  "targets": {},
+  "etags": {}
 }

@@ -6,6 +6,7 @@ const { request, response } = require("express");
 const stripe = require('stripe')('sk_test_51LkkMkSELcwMLRfIQt1yyBOG3Fe7lflkKlCNV1ebHyiUmBBLQG28LwlOkMhRD0w4kymROFue6IZkAuSqxZHf58ZJ00zJM7hxka')
 
 // API
+// 
 
 // - app cofig
 const app = express();
@@ -36,5 +37,14 @@ app.post('/payments/create', async (request, response) => {
 // -Listen command
 exports.api = functions.https.onRequest(app)
 
-// End point
-// http://localhost:5001/clone-24c33/us-central1/api
+// http://127.0.0.1:5001/amz-clone-7fa9b/us-central1/api
+
+
+
+// // Create and deploy your first functions
+// // https://firebase.google.com/docs/functions/get-started
+//
+// exports.helloWorld = functions.https.onRequest((request, response) => {
+//   functions.logger.info("Hello logs!", {structuredData: true});
+//   response.send("Hello from Firebase!");
+// });
