@@ -3,7 +3,7 @@ const functions = require("firebase-functions");
 const express = require("express");
 const cors = require("cors");
 const { request, response } = require("express");
-const stripe = require('stripe')('sk_test_51LkkMkSELcwMLRfIQt1yyBOG3Fe7lflkKlCNV1ebHyiUmBBLQG28LwlOkMhRD0w4kymROFue6IZkAuSqxZHf58ZJ00zJM7hxka')
+const stripe = require('stripe')('sk_test_##################################################################')
 
 // API
 // 
@@ -37,7 +37,7 @@ app.post('/payments/create', async (request, response) => {
 // -Listen command
 exports.api = functions.https.onRequest(app)
 
-// http://127.0.0.1:5001/amz-clone-7fa9b/us-central1/api
+// http://127.0.0.1:5001/#################################
 
 
 
